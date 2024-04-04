@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Node.js Server Test</title>
+</head>
+<body>
+    <button onclick="addUsername()">Add Username</button>
+    <button onclick="getUsernames()">Get Usernames</button>
+    <script>
+        async function addUsername() {
+            const username = prompt("Enter a username:");
+            if (username) {
+                const response = await fetch(`http://localhost:3000/?username=${encodeURIComponent(username)}`, {
+                    method: 'POST'
+                });
+                alert(await response.text());
+            }
+        }
+
+        async function getUsernames() {
+            const response = await fetch('http://localhost:3000/');
+            const usernames = await response.json();
+            alert(JSON.stringify(usernames));
+        }
+    </script>
+</body>
+</html>
+
